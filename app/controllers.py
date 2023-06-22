@@ -1,7 +1,7 @@
 
-from app import app
+from app.app import app
 from flask import jsonify, request
-from database import conn
+from app.database import conn
 from passlib.hash import bcrypt
 import jwt
 
