@@ -1,4 +1,4 @@
-Certainly! Here's the documentation in Markdown format:
+
 
 # Basic Server Documentation
 
