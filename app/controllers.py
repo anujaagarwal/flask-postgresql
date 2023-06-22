@@ -1,7 +1,10 @@
-import datetime
-from app import app, db
+
+from app import app
 from flask import jsonify, request
-from models import User, Event, Ticket
+from database import conn
+from passlib.hash import bcrypt
+import jwt
+
 
 # Signup endpoint
 @app.route('/signup', methods=['POST'])
@@ -61,5 +64,16 @@ def login():
 # Protected endpoint
 @app.route('/protected')
 def protected():
+    token = request.headers.get('Authorization')
+
+    if not token:
+        return jsonify({'message': 'No token provided.'}), 401
+
+    try:
+        decoded_token = jwt.decode(token, app.config['SECRET_KEY'])
+        nickname = decoded_token['nickname']
+    except jwt.InvalidTokenError:
+        return jsonify({'message': 'Invalid token.'}), 403
+
     # Perform actions for authenticated user
-    return jsonify({'message': 'Protected endpoint accessed successfully.'}), 200
+    return jsonify({'message': f'Hello, {nickname}! Protected endpoint accessed successfully.'}), 200
