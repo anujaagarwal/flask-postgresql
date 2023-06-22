@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup Page</title>
+</head>
+<body>
+  <h1>Signup Page</h1>
+  <form id="signup-form">
+    <label for="nickname">Nickname:</label>
+    <input type="text" id="nickname" name="nickname" required><br><br>
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    
+    <input type="submit" value="Signup">
+  </form>
+
+  <script>
+    document.getElementById('signup-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var nickname = document.getElementById('nickname').value;
+      var password = document.getElementById('password').value;
+
+      var data = {
+        nickname: nickname,
+        password: password
+      };
+
+      fetch('http://localhost:5000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.message);
+        console.log()
+        // Optionally, redirect to another page or perform additional actions
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-
+from flask_cors import cross_origin
 from app.app import app
 from flask import jsonify, request
 from app.database import conn
@@ -8,6 +8,7 @@ import jwt
 
 # Signup endpoint
 @app.route('/signup', methods=['POST'])
+@cross_origin()
 def signup():
     data = request.get_json()
     nickname = data['nickname']
@@ -38,6 +39,7 @@ def signup():
 
 # Login endpoint
 @app.route('/login', methods=['POST'])
+@cross_origin()
 def login():
     data = request.get_json()
     nickname = data['nickname']
@@ -63,6 +65,7 @@ def login():
 
 # Protected endpoint
 @app.route('/protected')
+@cross_origin()
 def protected():
     token = request.headers.get('Authorization')
 
