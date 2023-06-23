@@ -1,4 +1,5 @@
 from app.app import app
+
 import app.controllers as controllers
 
 app.add_url_rule('/signup', 'signup', controllers.signup, methods=['POST'])
